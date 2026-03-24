@@ -1,14 +1,11 @@
 package com.sprint.SocialMediaApp.entity;
-
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
-
 import java.util.List;
 
 @Entity
-@Table(name = "Users")
+@Table(name = "users")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -23,8 +20,8 @@ public class User {
     private String email;
     private String password;
 
-    @Lob
-    private byte[] profilePicture;
+    // Store URL instead of image
+    private String profilePicture;
 
 
     @OneToMany(mappedBy = "user")
