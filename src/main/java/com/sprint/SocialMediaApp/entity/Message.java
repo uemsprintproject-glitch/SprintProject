@@ -13,6 +13,7 @@ import lombok.*;
 public class Message {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer messageID;
 
     private String message_text;

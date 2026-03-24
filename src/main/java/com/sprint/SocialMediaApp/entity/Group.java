@@ -13,6 +13,7 @@ import lombok.*;
 public class Group {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer groupID;
 
     private String groupName;

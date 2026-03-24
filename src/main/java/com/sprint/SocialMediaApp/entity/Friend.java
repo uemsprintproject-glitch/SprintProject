@@ -13,6 +13,7 @@ import lombok.*;
 public class Friend {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer friendshipID;
 
     @ManyToOne

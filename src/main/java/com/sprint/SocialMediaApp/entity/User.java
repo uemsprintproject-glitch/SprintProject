@@ -16,6 +16,7 @@ import java.util.List;
 public class User {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer userID;
 
     private String username;
@@ -25,7 +26,6 @@ public class User {
     @Lob
     private byte[] profilePicture;
 
-    // Relationships
 
     @OneToMany(mappedBy = "user")
     @JsonIgnore

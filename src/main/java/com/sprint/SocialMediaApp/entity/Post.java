@@ -3,7 +3,10 @@ package com.sprint.SocialMediaApp.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
+
+import java.sql.Timestamp;
 import java.util.List;
 
 @Entity
@@ -15,11 +18,13 @@ import java.util.List;
 public class Post {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer postID;
 
     private String content;
 
-    private java.sql.Timestamp timestamp;
+    @CreationTimestamp
+    private Timestamp timestamp;
 
     @ManyToOne
     @JoinColumn(name = "userID")
