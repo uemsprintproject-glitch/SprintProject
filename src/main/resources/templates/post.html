@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Posts API UI</title>
+
+    <style>
+        body { font-family: Arial; text-align: center; }
+        .box {
+            border: 1px solid #aaa;
+            padding: 20px;
+            margin: 20px auto;
+            width: 320px;
+            border-radius: 10px;
+        }
+        input, textarea {
+            margin: 5px;
+            padding: 6px;
+            width: 90%;
+        }
+        button {
+            margin-top: 10px;
+            padding: 6px 10px;
+        }
+        table {
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+        }
+    </style>
+</head>
+
+<body>
+
+<h2>📝 Posts APIs</h2>
+
+<!-- 🔍 GET -->
+<div class="box">
+    <h3>GET</h3>
+
+    <!-- Get All Posts -->
+    <form action="/home" method="get">
+        <button type="submit">Get All Posts</button>
+    </form>
+
+    <!-- Get Posts by User -->
+    <form action="/posts/user" method="get">
+        <input type="number" name="userId" placeholder="User ID"/>
+        <button type="submit">Get Posts By User</button>
+    </form>
+</div>
+
+<!-- ➕ CREATE POST -->
+<div class="box">
+    <h3>POST</h3>
+
+    <form action="/posts" method="post">
+        <input type="number" name="userId" placeholder="User ID"/>
+        <textarea name="content" placeholder="Write your post..."></textarea>
+        <button type="submit">Create Post</button>
+    </form>
+</div>
+
+<!-- ❌ DELETE -->
+<div class="box">
+    <h3>DELETE</h3>
+
+    <form action="/posts/delete" method="post">
+        <input type="number" name="postId" placeholder="Post ID"/>
+        <button type="submit">Delete Post</button>
+    </form>
+</div>
+
+<!-- 📊 RESULT TABLE -->
+<h2>Result</h2>
+
+<table>
+    <tr>
+        <th>Post ID</th>
+        <th>User</th>
+        <th>Content</th>
+        <th>Timestamp</th>
+    </tr>
+
+    <tr th:each="post : ${posts}">
+        <td th:text="${post.postID}"></td>
+        <td th:text="${post.user.username}"></td>
+        <td th:text="${post.content}"></td>
+        <td th:text="${post.timestamp}"></td>
+    </tr>
+</table>
+
+</body>
+</html>
