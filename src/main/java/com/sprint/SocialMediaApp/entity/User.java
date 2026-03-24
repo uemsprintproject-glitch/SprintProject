@@ -20,10 +20,7 @@ public class User {
     private String email;
     private String password;
 
-    // Store URL instead of image
     private String profilePicture;
-
-    // Relationships
 
     @OneToMany(mappedBy = "user")
     @JsonIgnore
