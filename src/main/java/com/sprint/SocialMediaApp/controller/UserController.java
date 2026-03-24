@@ -58,7 +58,7 @@ public class UserController {
 
     @GetMapping("/posts")
     public String getPostsByUser(@RequestParam int id, Model model) {
-        model.addAttribute("data", postService.getPostsByUser(id));
+        model.addAttribute("posts", postService.getPostsByUser(id));
         return "/users/posts";
     }
 }

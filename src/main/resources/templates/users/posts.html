@@ -43,9 +43,9 @@
     <h2>User Posts</h2>
 
     <div th:each="post : ${posts}" class="post">
-        <h4 th:text="'Post ID: ' + ${post.postId}"></h4>
+        <h4 th:text="'Post ID: ' + ${post.postID}"></h4>
         <p th:text="${post.content}"></p>
-        <small th:text="${post.createdAt}"></small>
+        <small th:text="${post.timestamp}"></small>
     </div>
 
 </div>
