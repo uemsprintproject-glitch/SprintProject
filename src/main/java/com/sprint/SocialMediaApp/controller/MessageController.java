@@ -22,20 +22,20 @@ public class MessageController {
 
     @GetMapping
     public String messagePage() {
-        return "messages";
+        return "messages/messages";
     }
 
     @GetMapping("/all")
     public String getAllMessages(Model model) {
         model.addAttribute("data", messageService.getAllMessages());
-        return "message-result";
+        return "messages/result";
     }
 
     @GetMapping("/by-id")
     public String getMessageById(@RequestParam Integer id, Model model) {
         model.addAttribute("data",
                 List.of(messageService.getMessageById(id)));
-        return "message-result";
+        return "messages/result";
     }
 
     @PostMapping("/send")
