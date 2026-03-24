@@ -1,4 +1,5 @@
 package com.sprint.SocialMediaApp.service;
+
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -16,5 +17,9 @@ public class PostService {
 
     public List<Post> getPostsByUser(int userid) {
         return postRepo.findByUserUserID(userid);
+    }
+
+    public Post getPostById(Integer postID) {
+        return postRepo.findById(postID).orElse(null);
     }
 }
