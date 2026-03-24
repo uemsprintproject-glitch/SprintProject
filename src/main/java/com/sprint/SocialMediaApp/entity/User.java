@@ -23,7 +23,6 @@ public class User {
     // Store URL instead of image
     private String profilePicture;
 
-    // Relationships
 
     @OneToMany(mappedBy = "user")
     @JsonIgnore

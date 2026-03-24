@@ -13,6 +13,7 @@ import lombok.*;
 public class Comment {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer commentID;
 
     private String comment_text;
