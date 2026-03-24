@@ -1,53 +1,45 @@
 package com.sprint.SocialMediaApp.service;
-
-import com.sprint.SocialMediaApp.entity.*;
-import com.sprint.SocialMediaApp.repository.UserRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import com.sprint.SocialMediaApp.entity.User;
+import com.sprint.SocialMediaApp.repository.UserRepository;
 
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor
 public class UserService {
 
-    private final UserRepository userRepository;
+    private final UserRepository repo;
 
-    public User register(User user) {
-        return userRepository.save(user);
-    }
-
-    public User login(String email, String password) {
-        User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("User not found"));
-
-        if (!user.getPassword().equals(password)) {
-            throw new RuntimeException("Invalid password");
-        }
-
-        return user;
+    public UserService(UserRepository repo) {
+        this.repo = repo;
     }
 
     public List<User> getAllUsers() {
-        return userRepository.findAll();
+        return repo.findAll();
     }
 
-    public User getUserById(Integer id) {
-        return userRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+    public User getUserById(int id) {
+        return repo.findById(id).orElse(null);
     }
 
-    public User updateUser(Integer id, User updatedUser) {
-        User user = getUserById(id);
-
-        user.setUsername(updatedUser.getUsername());
-        user.setEmail(updatedUser.getEmail());
-        user.setPassword(updatedUser.getPassword());
-
-        return userRepository.save(user);
+    public void createUser(User user) {
+        repo.save(user);
     }
 
-    public void deleteUser(Integer id) {
-        userRepository.deleteById(id);
+    public void updateUser(User updatedUser) {
+        User existingUser = repo.findById(updatedUser.getUserID())
+            .orElseThrow();
+
+        existingUser.setUsername(updatedUser.getUsername());
+        existingUser.setEmail(updatedUser.getEmail());
+        existingUser.setPassword(updatedUser.getPassword());
+        existingUser.setProfilePicture(updatedUser.getProfilePicture());
+
+        repo.save(existingUser);
+    }
+
+    public void deleteUser(int id) {
+        repo.deleteById(id);
     }
 }
