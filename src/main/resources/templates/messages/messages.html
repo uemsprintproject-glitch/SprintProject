@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Messages API</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            text-align: center;
+            background-color: #f9f9f9;
+        }
+
+        .box {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px auto;
+            width: 400px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        input {
+            margin: 5px;
+            padding: 8px;
+            width: 80%;
+        }
+
+        button {
+            padding: 8px 15px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1> Ashmit Dutta - Messages Module</h1>
+
+<a href="/">⬅ Back to Home</a>
+
+<div class="box">
+    <h2>GET</h2>
+
+    <a href="/members/messages/all">
+        <button>Get All Messages</button>
+    </a>
+
+    <form action="/members/messages/by-id">
+        <input name="id" placeholder="Message ID">
+        <button type="submit">Get By ID</button>
+    </form>
+</div>
+
+<div class="box">
+    <h2>SEND MESSAGE</h2>
+
+    <form action="/members/messages/send" method="post">
+        <input name="messageID" placeholder="Message ID"><br>
+        <input name="senderID" placeholder="Sender ID"><br>
+        <input name="receiverID" placeholder="Receiver ID"><br>
+        <input name="message_text" placeholder="Message Text"><br>
+
+        <button type="submit">Send</button>
+    </form>
+</div>
+
+<div class="box">
+    <h2>UPDATE MESSAGE</h2>
+
+    <form action="/members/messages/update" method="post">
+        <input name="messageID" placeholder="Message ID"><br>
+        <input name="senderID" placeholder="Sender ID"><br>
+        <input name="receiverID" placeholder="Receiver ID"><br>
+        <input name="message_text" placeholder="Message Text"><br>
+
+        <button type="submit">Update</button>
+    </form>
+</div>
+
+<div class="box">
+    <h2>DELETE MESSAGE</h2>
+
+    <form action="/members/messages/delete">
+        <input name="id" placeholder="Message ID">
+        <button type="submit">Delete</button>
+    </form>
+</div>
+
+</body>
+</html>
