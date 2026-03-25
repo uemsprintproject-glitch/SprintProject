@@ -22,6 +22,7 @@ public class User {
 
     private String profilePicture;
 
+
     @OneToMany(mappedBy = "user")
     @JsonIgnore
     private List<Post> posts;
