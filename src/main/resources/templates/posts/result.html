@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Posts Results</title>
+</head>
+<body>
+
+<h2>Posts Data</h2>
+<table border="1">
+    <tr>
+        <th>Post Id</th>
+        <th>User Id</th>
+        <th>Content</th>
+        <th>Timestamp</th>
+    </tr>
+
+    <tr th:each="post : ${posts}">
+        <td th:text="${post.postID}"></td>
+        <td th:text="${post.user != null ? post.user.userID : 'N/A'}"></td>
+        <td th:text="${post.content}"></td>
+        <td th:text="${post.timestamp}"></td>
+    </tr>
+</table>
+
+</body>
+</html>
