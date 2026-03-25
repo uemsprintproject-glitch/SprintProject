@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Notification Results</title>
+</head>
+
+<body>
+
+    <h2>Notification Data</h2>
+
+    <table border="1">
+        <tr>
+            <th>Notification ID</th>
+            <th>Content</th>
+            <th>User ID</th>
+            <th>Timestamp</th>
+        </tr>
+
+        <tr th:each="notification : ${data}">
+            <td th:text="${notification.notificationID}"></td>
+            <td th:text="${notification.content}"></td>
+            <td th:text="${notification.user != null ? notification.user.userID : ''}"></td>
+            <td th:text="${notification.timestamp}"></td>
+        </tr>
+    </table>
+
+</body>
+
+</html>

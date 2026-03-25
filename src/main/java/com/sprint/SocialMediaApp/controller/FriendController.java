@@ -27,7 +27,7 @@ public class FriendController {
     public String getAllFriends(Model model) {
         model.addAttribute("data", friendService.getAllFriends());
         model.addAttribute("friend", new Friend());
-        return "friends";
+        return "friend/friends";
     }
 
     @GetMapping("/by-user")
@@ -35,7 +35,7 @@ public class FriendController {
         User user = userService.getUserById(userID);
         model.addAttribute("data", friendService.getFriendsOfUser(user));
         model.addAttribute("userID", userID);
-        return "friends/result";
+        return "friend/result";
     }
 
     @GetMapping("/requests")
@@ -43,7 +43,7 @@ public class FriendController {
         User user = userService.getUserById(userID);
         model.addAttribute("data", friendService.getFriendRequests(user));
         model.addAttribute("userID", userID);
-        return "friends/requests";
+        return "friend/requests";
     }
 
     @GetMapping("/accepted")
@@ -51,7 +51,7 @@ public class FriendController {
         User user = userService.getUserById(userID);
         model.addAttribute("data", friendService.getAcceptedFriends(user));
         model.addAttribute("userID", userID);
-        return "friends/accepted";
+        return "friend/accepted";
     }
 
     @PostMapping("/send-request")
@@ -94,7 +94,7 @@ public class FriendController {
     public String viewFriend(@PathVariable int id, Model model) {
         Friend friend = friendService.getFriendById(id);
         model.addAttribute("friend", friend);
-        return "friends/view";
+        return "friend/view";
     }
 
     @GetMapping("/api/friends/{userId}")
@@ -224,7 +224,6 @@ public class FriendController {
                 "friendshipID", friendship.getFriendshipID(),
                 "user1ID", friendship.getUser1().getUserID(),
                 "user2ID", friendship.getUser2().getUserID(),
-                "status", friendship.getStatus()
-        ));
+                "status", friendship.getStatus()));
     }
 }

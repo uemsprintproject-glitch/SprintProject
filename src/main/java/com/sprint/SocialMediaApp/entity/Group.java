@@ -1,9 +1,10 @@
 package com.sprint.SocialMediaApp.entity;
+
 import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Table(name = "Groups")
+@Table(name = "`groups`")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

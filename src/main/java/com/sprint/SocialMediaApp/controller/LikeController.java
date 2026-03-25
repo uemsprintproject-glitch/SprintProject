@@ -6,11 +6,13 @@ import com.sprint.SocialMediaApp.entity.User;
 import com.sprint.SocialMediaApp.service.LikeService;
 import com.sprint.SocialMediaApp.service.PostService;
 import com.sprint.SocialMediaApp.service.UserService;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
+@Controller
 @RequestMapping("/member/likes")
 public class LikeController {
 
@@ -24,28 +26,37 @@ public class LikeController {
         this.postService = postService;
     }
 
+    @GetMapping
+    public String page() {
+        return "like/likes";
+    }
+
     @GetMapping("/all")
-    public List<Like> getAllLikes() {
-        return likeService.getAllLikes();
+    public String getAllLikes(Model model) {
+        model.addAttribute("data", likeService.getAllLikes());
+        return "like/result";
     }
 
     @GetMapping("/by-id")
-    public Like getById(@RequestParam Integer id) {
-        return likeService.getLikeById(id);
+    public String getById(@RequestParam Integer id, Model model) {
+        model.addAttribute("data", List.of(likeService.getLikeById(id)));
+        return "like/result";
     }
 
     @GetMapping("/by-user")
-    public List<Like> getByUser(@RequestParam Integer userID) {
-        return likeService.getLikesByUser(userID);
+    public String getByUser(@RequestParam Integer userID, Model model) {
+        model.addAttribute("data", likeService.getLikesByUser(userID));
+        return "like/result";
     }
 
     @GetMapping("/by-post")
-    public List<Like> getByPost(@RequestParam Integer postID) {
-        return likeService.getLikesByPost(postID);
+    public String getByPost(@RequestParam Integer postID, Model model) {
+        model.addAttribute("data", likeService.getLikesByPost(postID));
+        return "like/result";
     }
 
     @PostMapping("/create")
-    public Like create(@RequestParam Integer likeID,
+    public String create(@RequestParam Integer likeID,
             @RequestParam Integer userID,
             @RequestParam Integer postID) {
 
@@ -58,11 +69,12 @@ public class LikeController {
                 .post(post)
                 .build();
 
-        return likeService.createLike(like);
+        likeService.createLike(like);
+        return "redirect:/member/likes";
     }
 
     @PostMapping("/update")
-    public Like update(@RequestParam Integer likeID,
+    public String update(@RequestParam Integer likeID,
             @RequestParam Integer userID,
             @RequestParam Integer postID) {
 
@@ -75,11 +87,13 @@ public class LikeController {
                 .post(post)
                 .build();
 
-        return likeService.updateLike(updatedLike);
+        likeService.updateLike(updatedLike);
+        return "redirect:/member/likes";
     }
 
     @PostMapping("/delete")
-    public void delete(@RequestParam Integer id) {
+    public String delete(@RequestParam Integer id) {
         likeService.deleteLike(id);
+        return "redirect:/member/likes";
     }
 }

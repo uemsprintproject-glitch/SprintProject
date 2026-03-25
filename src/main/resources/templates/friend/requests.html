@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Friend Requests</title>
+</head>
+
+<body>
+
+    <h2>Pending Friend Requests</h2>
+
+    <table border="1">
+        <tr>
+            <th>Friendship ID</th>
+            <th>User 1 ID</th>
+            <th>User 2 ID</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+
+        <tr th:each="friend : ${data}">
+            <td th:text="${friend.friendshipID}"></td>
+            <td th:text="${friend.user1 != null ? friend.user1.userID : ''}"></td>
+            <td th:text="${friend.user2 != null ? friend.user2.userID : ''}"></td>
+            <td th:text="${friend.status}"></td>
+            <td>
+                <form action="/friends/accept" method="post">
+                    <input type="hidden" name="friendshipID" th:value="${friend.friendshipID}">
+                    <input type="hidden" name="userID" th:value="${userID}">
+                    <button type="submit">Accept</button>
+                </form>
+            </td>
+        </tr>
+    </table>
+
+</body>
+
+</html>

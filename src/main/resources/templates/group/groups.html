@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Groups API</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            text-align: center;
+            background-color: #f9f9f9;
+        }
+
+        h1 {
+            margin-top: 20px;
+        }
+
+        .box {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px auto;
+            width: 400px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        input {
+            margin: 5px;
+            padding: 8px;
+            width: 80%;
+        }
+
+        button {
+            padding: 8px 15px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+
+        a {
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Groups Module</h1>
+
+    <a href="/">Back to Home</a>
+
+    <div class="box">
+        <h2>GET</h2>
+
+        <a href="/member/groups/all">
+            <button>Get All Groups</button>
+        </a>
+
+        <form action="/member/groups/by-id" method="get">
+            <input name="id" placeholder="Enter Group ID">
+            <button type="submit">Get Group By ID</button>
+        </form>
+
+        <form action="/member/groups/by-name" method="get">
+            <input name="groupName" placeholder="Enter Group Name">
+            <button type="submit">Get Group By Name</button>
+        </form>
+
+        <form action="/member/groups/by-admin" method="get">
+            <input name="adminId" placeholder="Enter Admin ID">
+            <button type="submit">Get Groups By Admin</button>
+        </form>
+    </div>
+
+    <div class="box">
+        <h2>CREATE GROUP</h2>
+
+        <form action="/member/groups/create" method="post">
+            <input name="groupName" placeholder="Group Name"><br>
+            <input name="admin" placeholder="Admin ID"><br>
+            <button type="submit">Create Group</button>
+        </form>
+    </div>
+
+    <div class="box">
+        <h2>UPDATE GROUP</h2>
+
+        <form action="/member/groups/update" method="post">
+            <input name="groupID" placeholder="Group ID"><br>
+            <input name="groupName" placeholder="Group Name"><br>
+            <input name="admin" placeholder="Admin ID"><br>
+            <button type="submit">Update</button>
+        </form>
+    </div>
+
+    <div class="box">
+        <h2>DELETE GROUP</h2>
+
+        <form action="/member/groups/delete" method="post">
+            <input name="id" placeholder="Group ID">
+            <button type="submit">Delete</button>
+        </form>
+    </div>
+
+</body>
+
+</html>

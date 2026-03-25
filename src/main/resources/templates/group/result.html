@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Group Results</title>
+</head>
+
+<body>
+
+    <h2>Group Data</h2>
+
+    <table border="1">
+        <tr>
+            <th>Group ID</th>
+            <th>Group Name</th>
+            <th>Admin ID</th>
+        </tr>
+
+        <tr th:each="group : ${data}">
+            <td th:text="${group.groupID}"></td>
+            <td th:text="${group.groupName}"></td>
+            <td th:text="${group.admin != null ? group.admin.userID : ''}"></td>
+        </tr>
+    </table>
+
+</body>
+
+</html>

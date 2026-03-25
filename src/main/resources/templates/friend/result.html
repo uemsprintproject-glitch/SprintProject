@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Friend Results</title>
+</head>
+
+<body>
+
+    <h2>Friend Data</h2>
+
+    <table border="1">
+        <tr>
+            <th>Friendship ID</th>
+            <th>User 1 ID</th>
+            <th>User 2 ID</th>
+            <th>Status</th>
+        </tr>
+
+        <tr th:each="friend : ${data}">
+            <td th:text="${friend.friendshipID}"></td>
+            <td th:text="${friend.user1 != null ? friend.user1.userID : ''}"></td>
+            <td th:text="${friend.user2 != null ? friend.user2.userID : ''}"></td>
+            <td th:text="${friend.status}"></td>
+        </tr>
+    </table>
+
+</body>
+
+</html>

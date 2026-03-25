@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.sprint.SocialMediaApp.entity.Group;
 import com.sprint.SocialMediaApp.service.GroupService;
 
-
 @Controller
 @RequestMapping("/member/groups")
 public class GroupController {
@@ -24,25 +23,25 @@ public class GroupController {
 
     @GetMapping
     public String page() {
-        return "users/groups";
+        return "group/groups";
     }
 
     @GetMapping("/all")
     public String getAll(Model model) {
         model.addAttribute("data", service.getAllGroups());
-        return "/users/result";
+        return "group/result";
     }
 
     @GetMapping("/by-id")
     public String getById(@RequestParam int id, Model model) {
-        model.addAttribute("data", service.getGroupById(id));
-        return "/users/result";
+        model.addAttribute("data", java.util.List.of(service.getGroupById(id)));
+        return "group/result";
     }
 
     @GetMapping("/by-name")
     public String getByName(@RequestParam String groupName, Model model) {
-        model.addAttribute("data", service.getGroupByName(groupName));
-        return "/users/result";
+        model.addAttribute("data", java.util.List.of(service.getGroupByName(groupName)));
+        return "group/result";
     }
 
     @PostMapping("/create")
@@ -66,7 +65,6 @@ public class GroupController {
     @GetMapping("/by-admin")
     public String getGroupsByAdmin(@RequestParam int adminId, Model model) {
         model.addAttribute("data", service.getGroupsByAdmin(adminId));
-        return "/users/result";
+        return "group/result";
     }
 }
-
