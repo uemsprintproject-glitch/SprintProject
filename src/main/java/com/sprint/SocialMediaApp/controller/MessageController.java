@@ -14,18 +14,28 @@ import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/messages")
+@RequestMapping("/members/messages")
 public class MessageController {
 
     private final MessageService messageService;
     private final UserService userService;
 
     @GetMapping
+    public String messagePage() {
+        return "messages/messages";
+    }
+
+    @GetMapping("/all")
     public String getAllMessages(Model model) {
-        List<Message> messages = messageService.getAllMessages();
-        model.addAttribute("messages", messages);
-        model.addAttribute("message", new Message());
-        return "messages";
+        model.addAttribute("data", messageService.getAllMessages());
+        return "messages/result";
+    }
+
+    @GetMapping("/by-id")
+    public String getMessageById(@RequestParam Integer id, Model model) {
+        model.addAttribute("data",
+                List.of(messageService.getMessageById(id)));
+        return "messages/result";
     }
 
     @PostMapping("/send")
@@ -46,20 +56,7 @@ public class MessageController {
 
         messageService.sendMessage(message);
 
-        return "redirect:/messages";
-    }
-
-    @GetMapping("/delete/{id}")
-    public String deleteMessage(@PathVariable Integer id) {
-        messageService.deleteMessage(id);
-        return "redirect:/messages";
-    }
-
-    @GetMapping("/edit/{id}")
-    public String editMessage(@PathVariable Integer id, Model model) {
-        Message message = messageService.getMessageById(id);
-        model.addAttribute("message", message);
-        return "edit-message";
+        return "redirect:/members/messages";
     }
 
     @PostMapping("/update")
@@ -80,6 +77,12 @@ public class MessageController {
 
         messageService.updateMessage(messageID, updatedMessage);
 
-        return "redirect:/messages";
+        return "redirect:/members/messages";
+    }
+
+    @GetMapping("/delete")
+    public String deleteMessage(@RequestParam Integer id) {
+        messageService.deleteMessage(id);
+        return "redirect:/members/messages";
     }
 }
