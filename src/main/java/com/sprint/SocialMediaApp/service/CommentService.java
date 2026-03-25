@@ -5,6 +5,8 @@ import com.sprint.SocialMediaApp.entity.Post;
 import com.sprint.SocialMediaApp.entity.User;
 import com.sprint.SocialMediaApp.repository.CommentRepository;
 import com.sprint.SocialMediaApp.repository.PostRepository;
+import com.sprint.SocialMediaApp.repository.UserRepository;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
