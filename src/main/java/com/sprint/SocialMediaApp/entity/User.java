@@ -22,6 +22,10 @@ public class User {
 
     private String profilePicture;
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/feature-sagnik
     @OneToMany(mappedBy = "user")
     @JsonIgnore
     private List<Post> posts;
