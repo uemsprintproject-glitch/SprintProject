@@ -3,10 +3,11 @@ package com.sprint.SocialMediaApp.service;
 import com.sprint.SocialMediaApp.entity.Comment;
 import com.sprint.SocialMediaApp.entity.Post;
 import com.sprint.SocialMediaApp.entity.User;
+import com.sprint.SocialMediaApp.exception.BadRequestException;
+import com.sprint.SocialMediaApp.exception.ResourceNotFoundException;
 import com.sprint.SocialMediaApp.repository.CommentRepository;
 import com.sprint.SocialMediaApp.repository.PostRepository;
 import com.sprint.SocialMediaApp.repository.UserRepository;
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -24,14 +25,15 @@ public class CommentService {
     public Comment addComment(Integer userId, Integer postId, String text) {
 
         if (text == null || text.trim().isEmpty()) {
-            throw new RuntimeException("Comment cannot be empty");
+            throw new BadRequestException("Post content cannot be empty");
         }
 
+        String id;
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("User not found with ID: " + userId));
 
         Post post = postRepository.findById(postId)
-                .orElseThrow(() -> new RuntimeException("Post not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("User not found with ID: " + postId));
 
         Comment comment = Comment.builder()
                 .comment_text(text)
@@ -49,6 +51,7 @@ public class CommentService {
     }
 
     public void deleteComment(Integer commentId) {
+
         commentRepository.deleteById(commentId);
     }
 }

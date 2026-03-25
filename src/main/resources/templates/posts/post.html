@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <meta charset="UTF-8">
     <title>Posts API UI</title>
 
     <style>
@@ -36,23 +37,21 @@
 
 <h2>📝 Posts APIs</h2>
 
-<!-- 🔍 GET -->
+
 <div class="box">
     <h3>GET</h3>
 
-    <!-- Get All Posts -->
     <form action="/home" method="get">
         <button type="submit">Get All Posts</button>
     </form>
 
-    <!-- Get Posts by User -->
     <form action="/posts/user" method="get">
         <input type="number" name="userId" placeholder="User ID"/>
         <button type="submit">Get Posts By User</button>
     </form>
 </div>
 
-<!-- ➕ CREATE POST -->
+
 <div class="box">
     <h3>POST</h3>
 
@@ -63,7 +62,7 @@
     </form>
 </div>
 
-<!-- ❌ DELETE -->
+
 <div class="box">
     <h3>DELETE</h3>
 
@@ -73,7 +72,6 @@
     </form>
 </div>
 
-<!-- 📊 RESULT TABLE -->
 <h2>Result</h2>
 
 <table>
