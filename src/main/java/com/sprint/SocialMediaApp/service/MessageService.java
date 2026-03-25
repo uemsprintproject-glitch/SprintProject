@@ -26,9 +26,8 @@ public class MessageService {
         return messageRepository.findAll();
     }
 
-    public Message getMessageById(Integer id) {
-        return messageRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Message not found"));
+    public Message getMessageByIdSafe(Integer id) {
+        return messageRepository.findById(id).orElse(null);
     }
 
     public List<Message> getMessagesBySender(User sender) {
@@ -40,7 +39,12 @@ public class MessageService {
     }
 
     public Message updateMessage(Integer id, Message updatedMessage) {
-        Message message = getMessageById(id);
+
+        Message message = messageRepository.findById(id).orElse(null);
+
+        if (message == null) {
+            return null; // controller should handle this
+        }
 
         message.setMessage_text(updatedMessage.getMessage_text());
         message.setSender(updatedMessage.getSender());
@@ -50,7 +54,13 @@ public class MessageService {
         return messageRepository.save(message);
     }
 
-    public void deleteMessage(Integer id) {
+    public boolean deleteMessageSafe(Integer id) {
+
+        if (!messageRepository.existsById(id)) {
+            return false;
+        }
+
         messageRepository.deleteById(id);
+        return true;
     }
 }

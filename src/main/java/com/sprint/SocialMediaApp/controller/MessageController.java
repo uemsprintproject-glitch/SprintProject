@@ -27,28 +27,47 @@ public class MessageController {
 
     @GetMapping("/all")
     public String getAllMessages(Model model) {
-        model.addAttribute("data", messageService.getAllMessages());
+
+        List<Message> messages = messageService.getAllMessages();
+
+        if (messages.isEmpty()) {
+            model.addAttribute("errorMessage", "No messages found.");
+            return "error";
+        }
+
+        model.addAttribute("data", messages);
         return "message-result";
     }
 
     @GetMapping("/by-id")
     public String getMessageById(@RequestParam Integer id, Model model) {
-        model.addAttribute("data",
-                List.of(messageService.getMessageById(id)));
+
+        Message message = messageService.getMessageByIdSafe(id);
+
+        if (message == null) {
+            model.addAttribute("errorMessage", "No message found with ID: " + id);
+            return "error";
+        }
+
+        model.addAttribute("data", List.of(message));
         return "message-result";
     }
 
     @PostMapping("/send")
-    public String sendMessage(@RequestParam Integer messageID,
-            @RequestParam Integer senderID,
+    public String sendMessage(@RequestParam Integer senderID,
             @RequestParam Integer receiverID,
-            @RequestParam String message_text) {
+            @RequestParam String message_text,
+            Model model) {
 
         User sender = userService.getUserById(senderID);
         User receiver = userService.getUserById(receiverID);
 
+        if (sender == null || receiver == null) {
+            model.addAttribute("errorMessage", "Invalid sender or receiver ID.");
+            return "error";
+        }
+
         Message message = Message.builder()
-                .messageID(messageID)
                 .message_text(message_text)
                 .sender(sender)
                 .receiver(receiver)
@@ -59,30 +78,16 @@ public class MessageController {
         return "redirect:/members/messages";
     }
 
-    @PostMapping("/update")
-    public String updateMessage(@RequestParam Integer messageID,
-            @RequestParam Integer senderID,
-            @RequestParam Integer receiverID,
-            @RequestParam String message_text) {
-
-        User sender = userService.getUserById(senderID);
-        User receiver = userService.getUserById(receiverID);
-
-        Message updatedMessage = Message.builder()
-                .messageID(messageID)
-                .message_text(message_text)
-                .sender(sender)
-                .receiver(receiver)
-                .build();
-
-        messageService.updateMessage(messageID, updatedMessage);
-
-        return "redirect:/members/messages";
-    }
-
     @GetMapping("/delete")
-    public String deleteMessage(@RequestParam Integer id) {
-        messageService.deleteMessage(id);
+    public String deleteMessage(@RequestParam Integer id, Model model) {
+
+        boolean deleted = messageService.deleteMessageSafe(id);
+
+        if (!deleted) {
+            model.addAttribute("errorMessage", "Cannot delete. Message not found with ID: " + id);
+            return "error";
+        }
+
         return "redirect:/members/messages";
     }
 }
