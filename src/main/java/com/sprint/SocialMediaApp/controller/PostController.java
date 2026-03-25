@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 @RequiredArgsConstructor
 public class PostController {
-
+//
     private final PostService postService;
 
     @GetMapping("/home")
