@@ -57,4 +57,16 @@ public class FriendService {
     public void deleteFriend(Integer id) {
         friendRepository.deleteById(id);
     }
+
+    public Friend findExistingFriendship(User user1, User user2) {
+        Friend forward = friendRepository.findByUser1AndUser2(user1, user2);
+        if (forward != null) {
+            return forward;
+        }
+        return friendRepository.findByUser1AndUser2(user2, user1);
+    }
+
+    public List<Friend> getSentFriendRequests(User user) {
+        return friendRepository.findByUser1AndStatus(user, Friend.Status.pending);
+    }
 }
